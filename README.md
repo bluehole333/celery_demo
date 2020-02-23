@@ -169,3 +169,26 @@ $ celery multi start  -A celery_demo -l info
 ```
 $ celery multi restart  -A celery_demo -l info
 ```
+
+### 关闭Celery
+关闭有2种方式，stop和stopwait，stop不会等待worker执行完成，stopwait会等待work全部执行完成退出后停止，建议使用stopwait，
+```
+$ celery multi stop  -A celery_demo -l info
+// 建议使用stopwait
+$ celery multi stopwait  -A celery_demo -l info
+```
+
+## Celery的高级用法
+### Celery启动参数
+--pid:```--pidfile=x.pid```，方便多个worker重启和启动,
+```
+$ celery multi restart -A celery_demo --pidfile=x.pid
+```
+--logfile: ```--logfile=x.log```
+
+### 调用方法
+非阻塞运行方法
+```delay(参数, )```
+
+指定执行参数，指定队列名为mytask, 任务60秒后开始运行
+```apply_async((参数,  参数), queue='mytask', countdown=60)```
